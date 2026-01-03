@@ -1,6 +1,7 @@
 import { Table } from "@radix-ui/themes";
 import Link from "next/link";
 import IssueStatusBadge from "./IssueStatusBadge";
+import IssueStatusSelect from "./IssueStatusSelect";
 import { Issue } from "@prisma/client";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
@@ -43,7 +44,11 @@ const IssueTable = ({ issues, showActions = true }: Props) => {
               </div>
             </Table.Cell>
             <Table.Cell className="hidden md:table-cell">
-              <IssueStatusBadge status={issue.status} />
+              {showActions ? (
+                <IssueStatusSelect issueId={issue.id} currentStatus={issue.status} />
+              ) : (
+                <IssueStatusBadge status={issue.status} />
+              )}
             </Table.Cell>
             <Table.Cell className="hidden md:table-cell">
               {issue.createdAt.toLocaleDateString()}

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { createIssueSchema } from "@/app/validationSchemas";
+import { patchIssueSchema } from "@/app/validationSchemas";
 
 export async function GET(
   request: NextRequest,
@@ -24,17 +24,19 @@ export async function PATCH(
 ) {
   const { id } = await params;
   const body = await request.json();
-  const validation = createIssueSchema.safeParse(body);
+  const validation = patchIssueSchema.safeParse(body);
   if (!validation.success) {
     return NextResponse.json(validation.error.format(), { status: 400 });
   }
 
+  const updateData: { title?: string; description?: string; status?: string } = {};
+  if (body.title !== undefined) updateData.title = body.title;
+  if (body.description !== undefined) updateData.description = body.description;
+  if (body.status !== undefined) updateData.status = body.status;
+
   const issue = await prisma.issue.update({
     where: { id: parseInt(id) },
-    data: {
-      title: body.title,
-      description: body.description,
-    },
+    data: updateData,
   });
 
   return NextResponse.json(issue);
