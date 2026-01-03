@@ -4,8 +4,9 @@ import { Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import EditButton from "@/app/components/EditButton";
 import DeleteButton from "@/app/components/DeleteButton";
-import dynamic from "next/dynamic";
 import ReactMarkdown from "react-markdown";
+
+export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ id: string }>;

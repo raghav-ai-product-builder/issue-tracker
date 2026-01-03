@@ -5,6 +5,8 @@ import { Button } from "@radix-ui/themes";
 import Link from "next/link";
 import IssueStatusFilter from "./components/IssueStatusFilter";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   searchParams: Promise<{ status?: string }>;
 }

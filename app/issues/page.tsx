@@ -3,6 +3,8 @@ import { Button, Flex } from "@radix-ui/themes";
 import Link from "next/link";
 import IssueTable from "../components/IssueTable";
 
+export const dynamic = "force-dynamic";
+
 async function getIssues() {
   const issues = await prisma.issue.findMany({
     orderBy: {
