@@ -29,10 +29,16 @@ export async function PATCH(
     return NextResponse.json(validation.error.format(), { status: 400 });
   }
 
-  const updateData: { title?: string; description?: string; status?: string } = {};
+  const updateData: {
+    title?: string;
+    description?: string;
+    status?: "OPEN" | "IN_PROGRESS" | "CLOSED";
+  } = {};
   if (body.title !== undefined) updateData.title = body.title;
   if (body.description !== undefined) updateData.description = body.description;
-  if (body.status !== undefined) updateData.status = body.status;
+  if (body.status !== undefined) {
+    updateData.status = body.status as "OPEN" | "IN_PROGRESS" | "CLOSED";
+  }
 
   const issue = await prisma.issue.update({
     where: { id: parseInt(id) },
