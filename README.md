@@ -1,18 +1,31 @@
 # Issue Tracker
 
-A Next.js application for tracking issues with Prisma and MySQL.
+A Next.js application for tracking issues with Prisma and PostgreSQL (Supabase).
 
 ## Environment Variables
 
 Make sure to set the following environment variable in Vercel:
 
-- `DATABASE_URL`: Your MySQL database connection string
+- `DATABASE_URL`: Your PostgreSQL database connection string (from Supabase)
 
 Example format:
 
 ```
-DATABASE_URL="mysql://user:password@host:3306/database_name"
+DATABASE_URL="postgresql://user:password@host:5432/database_name?sslmode=require"
 ```
+
+## Setting up Supabase
+
+1. Go to https://supabase.com and sign up/login
+2. Create a new project
+3. Go to Project Settings → Database
+4. Copy the "Connection string" under "Connection parameters" (use the "URI" format)
+5. Add it to Vercel as `DATABASE_URL` environment variable
+6. Run the migration SQL:
+   - Go to Supabase Dashboard → SQL Editor
+   - Copy and paste the contents of `prisma/migrations/init/migration.sql`
+   - Run the SQL to create the tables
+7. Update your local `.env` file with the Supabase connection string for local development
 
 ## Vercel Deployment
 
